@@ -7,13 +7,12 @@ import * as _ from 'lodash';
 import { Injectable, Module, Scope } from '@nestjs/common';
 import { KafkaMessage } from 'kafkajs';
 import { BasedBlockConsumer } from './kafka-comsumer';
-import { SharedModule } from 'modules/shared/shared.module';
-import { DexModule } from 'modules/dex/dex.module';
-import { DexService } from 'modules/dex/dex.service';
+import { SwapService } from 'modules/swap/swap.service';
+import { SwapModule } from 'modules/swap/swap.module';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class DecodeDexConsumer extends BasedBlockConsumer {
-  constructor(private readonly dexService: DexService) {
+  constructor(private readonly dexService: SwapService) {
     super();
   }
   async eachMessage(message: KafkaMessage): Promise<void> {
@@ -23,7 +22,7 @@ export class DecodeDexConsumer extends BasedBlockConsumer {
 }
 
 @Module({
-  imports: [SharedModule, DexModule],
+  imports: [SwapModule],
   providers: [DecodeDexConsumer],
   exports: [],
 })

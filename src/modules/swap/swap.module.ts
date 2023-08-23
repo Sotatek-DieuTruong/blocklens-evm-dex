@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SharedModule } from 'modules/shared/shared.module';
-import { DexService } from './dex.service';
-import { EventSwapDetector } from './swap-detector/event-swap.service';
-import { DexPoolService } from './dex-pool/dex-pool.service';
+import { EventSwapDetector } from '../swap/swap-detector/event-swap.service';
 import { BullModule } from '@nestjs/bull';
 import { BACKUP_RETRY_TIME, EQueueName } from 'modules/shared/constants/queue.constant';
 import { HttpModule } from '@nestjs/axios';
+import { SwapService } from './swap.service';
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import { HttpModule } from '@nestjs/axios';
     }),
     HttpModule,
   ],
-  providers: [DexService, EventSwapDetector, DexPoolService],
-  exports: [DexService, EventSwapDetector, BullModule, HttpModule, DexPoolService],
+  providers: [SwapService, EventSwapDetector],
+  exports: [SwapService, EventSwapDetector, BullModule, HttpModule],
 })
-export class DexModule {}
+export class SwapModule {}

@@ -32,5 +32,5 @@ export default registerAs('network', () => ({
       'https://eth-rpc.gateway.pokt.network',
       'https://eth-mainnet.nodereal.io/v1/60c48f24d28842c49203a7d6412e2a04',
     ],
-  }
+  },
 }));

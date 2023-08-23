@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { SharedModule } from "../modules/shared/shared.module";
-
-require('dotenv').config();
-// const perf = require('execution-time')();
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import * as fs from 'fs';
 import { SupportedCoinEntity } from '../database/entities/supported-coin.entity';
@@ -11,6 +8,7 @@ import { EChain, ENetwork, callWithChunk } from '@sotatek/blocklens-libs';
 import * as _ from 'lodash';
 import { SupportedCoinService } from 'modules/shared/services';
 import * as web3 from 'web3-utils';
+import { SharedModule } from 'modules/shared/shared.module';
 
 const run = async () => {
   const appModule = await NestFactory.createApplicationContext(SharedModule);

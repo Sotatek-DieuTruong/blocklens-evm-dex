@@ -1,6 +1,5 @@
 import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import winston from 'winston';
-import { LoggerService } from '../../shared/utils';
 import { ITransactionWithReceipt, Web3Service } from '@sotatek/blocklens-web3';
 import { EChain, ENetwork } from '@sotatek/blocklens-libs';
 import { Log } from 'web3-core';
@@ -10,6 +9,7 @@ import { DexPoolRepository, ProtocolRepository } from 'modules/shared/repositori
 import { DexPoolEntity } from 'database/entities/dex-pool.entity';
 import * as _ from 'lodash';
 import { ProtocolEntity } from 'database/entities/protocol.entity';
+import { LoggerService } from 'modules/shared/utils';
 
 /*
  *
@@ -151,7 +151,7 @@ const abis = [...PAIR_CREATED_ABI, ...DEPLOYED_ABI, ...POOL_CREATED_ABI, ...LOG_
 const DEFAULT_CACHE_TIME = 60 * 60; // set expiry time is 1 h
 
 @Injectable()
-export class DexPoolService implements OnApplicationBootstrap {
+export class PoolService implements OnApplicationBootstrap {
   protected logger: winston.Logger;
   protected interface: Interface;
 
@@ -161,7 +161,7 @@ export class DexPoolService implements OnApplicationBootstrap {
   @Inject(RedisService) private redisService: RedisService;
 
   onApplicationBootstrap() {
-    this.logger = LoggerService.get(DexPoolService.name);
+    this.logger = LoggerService.get(PoolService.name);
     this.interface = new Interface(abis);
   }
 

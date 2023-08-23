@@ -8,7 +8,7 @@ import { DexPoolRepository, DexSwapRepository } from 'modules/shared/repositorie
 import { EChain, ENetwork } from '@sotatek/blocklens-libs';
 import { DexSwapsEntity } from 'database/entities/dex-swap.entity';
 // import { FunctionSwapDetector } from './swap-detector/function-swap.service';
-import { EventSwapDetector } from './swap-detector/event-swap.service';
+import { EventSwapDetector } from '../swap/swap-detector/event-swap.service';
 import { formatShortAddress, sleep } from 'shares/helpers/utils';
 import BigNumber from 'bignumber.js';
 // import { InjectQueue } from '@nestjs/bull';
@@ -18,7 +18,7 @@ BigNumber.config({
   EXPONENTIAL_AT: 50,
 });
 @Injectable()
-export class DexService implements OnApplicationBootstrap {
+export class SwapService implements OnApplicationBootstrap {
   protected logger: winston.Logger;
 
   @Inject(Web3Service) web3Service: Web3Service;
@@ -34,7 +34,7 @@ export class DexService implements OnApplicationBootstrap {
   // ) {}
 
   onApplicationBootstrap() {
-    this.logger = LoggerService.get(DexService.name);
+    this.logger = LoggerService.get(SwapService.name);
   }
 
   async scan(chainNetwork: { chain: EChain; network: ENetwork }, blockNumber: number) {

@@ -5,18 +5,17 @@ import { NestFactory } from '@nestjs/core';
 import { Kafka } from 'kafkajs';
 import { ConfigService } from '@nestjs/config';
 import { LoggerService } from '../modules/shared/utils';
-import { DexPoolService } from 'modules/dex/dex-pool/dex-pool.service';
-import { SharedModule } from '../modules/shared/shared.module';
+import { PoolService } from 'modules/pool/pool.service';
+import { PoolModule } from 'modules/pool/pool.module';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const perf = require('execution-time')();
 
 const runDecoderProcessor = async () => {
-  const appModule = await NestFactory.createApplicationContext(SharedModule);
-
-  const dexPoolService = appModule.get(DexPoolService);
+  const appModule = await NestFactory.createApplicationContext(PoolModule);
+  const poolService = appModule.get(PoolService);
   const configService = appModule.get(ConfigService);
-  const logger = LoggerService.get('decode-dex-pool.processor');
+  const logger = LoggerService.get('scan-pool.processor');
 
   const kafkaConfig = configService.get('kafka');
   const kafka = new Kafka({
@@ -41,7 +40,7 @@ const runDecoderProcessor = async () => {
         const { chain, network, blockNumber } = JSON.parse(`${message.value}`);
         logger.info(`Received message from topic: ${topic}/partition:${partition} with payload: ${message.value}`);
         perf.start(blockNumber);
-        await dexPoolService.scan({ chain, network }, blockNumber);
+        await poolService.scan({ chain, network }, blockNumber);
 
         const results = perf.stop(blockNumber);
         logger.info(`======= Decode blockNum: ${blockNumber.toLocaleString()} took ${results.preciseWords}`);
