@@ -1140,9 +1140,9 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@sotatek/blocklens-libs@git+https://npm-install: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@github.com/sotatek-dev/blocklens-libs.git#efd41c747014c1203ae35e522d39e8eb08e447c2":
+"@sotatek/blocklens-libs@git+https://npm-install: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@github.com/sotatek-dev/blocklens-libs.git#efd41c747014c1203ae35e522d39e8eb08e447c2":
   version "0.0.5"
-  resolved "git+https://npm-install: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@github.com/sotatek-dev/blocklens-libs.git#efd41c747014c1203ae35e522d39e8eb08e447c2"
+  resolved "git+https://npm-install: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@github.com/sotatek-dev/blocklens-libs.git#efd41c747014c1203ae35e522d39e8eb08e447c2"
   dependencies:
     "@nestjs/common" "^8.0.0"
     "@nestjs/core" "^8.0.0"
