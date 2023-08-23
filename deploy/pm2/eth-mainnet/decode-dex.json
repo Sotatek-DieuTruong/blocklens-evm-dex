@@ -1,0 +1,26 @@
+{
+    "apps": [
+        {
+            "name": "blocklens.eth-mainnet.decode-dex",
+            "script": "node",
+            "args": "dist/processors/decode-dex.processor.js",
+            "max_memory_restart": "1024M",
+            "log_date_format": "YYYY-MM-DD hh:mm:ss",
+            "namespace": "eth-mainnet",
+            "instances": 50,
+            "exec_mode": "fork",
+            "env": {
+                "ETH_MAINNET_URI": "postgresql://postgres:Sota%402022@172.16.199.22:5432/eth-mainnet-decoded",
+                "KAFKA_CLIENT_ID": "eth-mainnet.decode-dex",
+                "KAFKA_GROUP_ID": "eth-mainnet.decode-dex",
+                "KAFKA_BROKERS": "172.16.198.38:19092",
+                "DRUID_URI": "http://172.16.198.38:48888/druid/v2/sql",
+                "DECODER_TARGET": "ETH_MAINNET",
+                "APP_STORAGE": "KAFKA",
+                "REDIS_HOST": "172.16.199.22",
+                "REDIS_PORT": 16379,
+                "REDIS_DATABASE": 0
+            }
+        }
+    ]
+}

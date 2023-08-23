@@ -1,0 +1,23 @@
+{
+    "apps": [
+        {
+            "name": "blocklens.eth-mainnet.queue-coin-price",
+            "script": "node",
+            "args": "dist/processors/coin-price.queue.js",
+            "max_memory_restart": "1024M",
+            "log_date_format": "YYYY-MM-DD hh:mm:ss",
+            "namespace": "eth-mainnet",
+            "instances": 5,
+            "exec_mode": "fork",
+            "env": {
+                "ETH_MAINNET_URI": "postgresql://postgres:Sota%402022@172.16.199.22:5432/eth-mainnet-decoded",
+                "KAFKA_CLIENT_ID": "eth-mainnet.coin-price.queue",
+                "KAFKA_GROUP_ID": "eth-mainnet.coin-price.queue",
+                "KAFKA_BROKERS": "172.16.198.38:19092",
+                "DRUID_URI": "http://172.16.198.38:48888/druid/v2/sql",
+                "DECODER_TARGET": "ETH_MAINNET",
+                "APP_STORAGE": "KAFKA"
+            }
+        }
+    ]
+}
